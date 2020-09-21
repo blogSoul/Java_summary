@@ -1,11 +1,11 @@
 import java.util.ArrayList;
 
-public class Sample {
+public class basic {
     // 주석은 이렇게 사용합니다.
     // class이름과 파일 이름을 같이 맞출 수 있도록 합니다.
     public static void main(final String[] args) {
         char b = 'a';
-        boolean isTest= false;
+        //boolean isTest= false;
         String c = "Hi asd";
         System.out.println("Helloworld");
         System.out.println(b);
@@ -68,6 +68,21 @@ public class Sample {
                 System.out.println((i+1)+"번 학생은 합격입니다.");
             }else {
                 System.out.println((i+1)+"번 학생은 불합격입니다.");
+            }
+        }
+
+        /*
+        foreach문 사용방법
+        for(type var: iterate){
+            body-of-loop
+        }
+        단, foreach문은 따로 반복회수를 명시적으로 주는 것이 불가능합니다. 
+        */
+        for(int element : marks) {
+            if (element >= 60) {
+                System.out.println((element)+"점 학생은 합격입니다.");
+            }else {
+                System.out.println((element)+"점 학생은 불합격입니다.");
             }
         }
     }
