@@ -1,8 +1,9 @@
 import java.util.ArrayList;
 
-public class threadTest extends Thread {
+public class RunnableTest implements Runnable {
+    // implements은 interface 상속에 사용되고 부모의 메소드를 반드시 오버라이딩(재정의)해야 한다. 그리고 다중 상속이 가능합니다.
     int seq;
-    public threadTest(int seq) {
+    public RunnableTest(int seq) {
         this.seq = seq;
     }
     public void run() {
@@ -17,7 +18,7 @@ public class threadTest extends Thread {
     public static void main(String[] args){
         ArrayList<Thread> threads = new ArrayList<Thread>();
         for(int i = 0; i < 10; i++){
-            Thread thread = new threadTest(i);
+            Thread thread = new Thread(new RunnableTest(i));
             thread.start();
             threads.add(thread);
         }
