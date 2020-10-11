@@ -1,57 +1,41 @@
-import java.io.IOException;
 import java.util.Scanner;
-import java.util.Arrays;
 
 public class Main {
+    public static int[][] dp;
     public static int[] arr;
-    public static int[] arr1;
-    public static int[] arr2;
-    public static int Max = Integer.MIN_VALUE, result = Integer.MIN_VALUE;
-    public static void dp(int N, int lenN){ 
-        for(int i = 1; i <= N; i++){
-            for(int j = 1; j <= i; j++){
-                if(arr[j] < arr[i] && arr1[j] >= arr1[i])
-                    arr1[i] = arr1[j] + 1;
-            }    
-        }
-        for(int i = N; i >= 1; i--){
-            for(int j = N; j >= i; j--){
-                if(arr[j] < arr[i] && arr2[j] >= arr2[i])
-                    arr2[i] = arr2[j] + 1;
-            }    
-        }
-        
-        for(int i = 1; i <= N; i++){
-            System.out.print(arr1[i] + " ");
-        }
-        System.out.println("");
-        for(int i = 1; i <= N; i++){
-            System.out.print(arr2[i] + " ");
-        }
-        System.out.println("");
-        
-        for(int i = 1; i <= N; i++){
-            result = Math.max(result, arr1[i]);
-            result = Math.max(result, arr2[i]);
-        }
-        System.out.println(lenN - result);
-    }
-    public static void main(String[] args) throws IOException{
+    public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        int N = sc.nextInt(), key, value;
-        arr = new int[501];
-        arr1 = new int[501];
-        arr2 = new int[501];
-        Arrays.fill(arr, 1);
-        Arrays.fill(arr1, 1);
-        Arrays.fill(arr2, 1);
-        for(int i = 1; i <= N; i++){
-            key = sc.nextInt();
-            value = sc.nextInt();
-            arr[key] = value;
-            Max = Math.max(Max, Math.max(key, value));
+        int N =  sc.nextInt();
+        int Max = 0;
+        dp = new int[N][2];
+        arr = new int[N];
+        for(int i = 0; i < N; i++){
+            dp[i][0] = sc.nextInt(); // A
+            dp[i][1] = sc.nextInt(); // B
         }
         sc.close();
-        dp(Max, N);
+        int temp = 0;
+        for(int i = 0; i < N; i++){
+            for(int j = 0; j < i; j++){
+                if(dp[i][0] > dp[j][0]){
+                    temp = dp[i][0];
+                    dp[i][0] = dp[j][0];
+                    dp[j][0] = temp;
+                    temp = dp[i][1];
+                    dp[i][1] = dp[j][1];
+                    dp[j][1] = temp;
+                }
+            }
+        } // sort
+        for(int i = 0; i < N; i++){
+            arr[i] = 1;
+            for(int j = 0; j <= i; j++){
+                if(dp[i][1] < dp[j][1]){
+                    arr[i] = Math.max(arr[i], arr[j] + 1);
+                }
+            }
+            Max = Math.max(arr[i], Max);
+        }
+        System.out.println(N - Max);
     }
 }
