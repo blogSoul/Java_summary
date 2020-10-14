@@ -1,23 +1,19 @@
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-
+import java.util.Scanner;
 public class Main {
     public static void main(String[] args) throws Exception{
-        BufferedReader br  = new BufferedReader(new InputStreamReader(System.in));
-        int N = Integer.parseInt(br.readLine());
-        int[] arr = new int[10001];
-        for(int i = 1; i <= N; i++){
-            arr[Integer.parseInt(br.readLine())]++;
+        Scanner sc = new Scanner(System.in);
+        int N = sc.nextInt();
+        int K = sc.nextInt();
+        int[] value = new int[N];
+        int cnt = 0;
+        for(int i = 0; i < N; i++){
+            value[i] = sc.nextInt();
         }
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        for(int i = 1; i <= 10000; i++){
-            for(int j = 0; j < arr[i]; j++){
-                bw.write(Integer.toString(i) + "\n");
-            }
+        for(int i = N - 1; i >= 0; i--){
+            cnt += K / value[i];
+            K -= (K / value[i]) * value[i];
         }
-        br.close();
-        bw.close();
+        sc.close();
+        System.out.print(cnt);    
     }
 }
