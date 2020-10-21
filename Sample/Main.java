@@ -5,24 +5,22 @@ import java.io.BufferedWriter;
 import java.util.Stack;
 
 public class Main {
+    public static void check(int[] arr){
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        Stack<Integer> stack = new Stack<Integer>();
+        Stack<Integer> stackTwo = new Stack<Integer>();
+        bw.close();
+    }
     public static void main(String[] args) throws Exception{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        Stack<Integer> stack = new Stack<Integer>();
         int N = Integer.parseInt(br.readLine());
+        int[] arr = new int[N];
         for(int i = 0; i < N; i++){
-            int input = Integer.parseInt(br.readLine());
-            if(input == 0 && !stack.empty()){
-                stack.pop();
-            } else {
-                stack.push(input);
-            }
+            int M = Integer.parseInt(br.readLine());
+            arr[i] = M;
         }
-        int sum = 0;
-        while(!stack.empty()){
-            sum += stack.pop();
-        }
-        bw.write(sum + "\n");
+        check(arr);
         br.close();
         bw.close();
     }
