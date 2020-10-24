@@ -10,7 +10,9 @@ import java.io.BufferedWriter;
 public class Main {
     private static Queue<Integer> queue;
     private static StringBuilder sb;
+    private static int backValue;
     public static void push(int num){
+        backValue = num;
         queue.add(num);
     }
     public static void pop(){
@@ -42,11 +44,7 @@ public class Main {
             sb.append("-1\n");
             return;
         }
-        int current = 0;
-        for(Iterator<Integer> iterator = queue.iterator(); iterator.hasNext();){
-            current = iterator.next();
-        }
-        sb.append(Integer.toString(current) + "\n");
+        sb.append(Integer.toString(backValue) + "\n");
     }
     public static void main(String[] args) throws Exception{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
