@@ -6,34 +6,35 @@ import java.util.ArrayList;
 import java.util.StringTokenizer;
 
 public class Main{
+    public static int check(ArrayList<Integer> arr, int num){
+        int start = 0, end = arr.size() - 1, mid;
+        while(end > start){
+           mid = (start + end) / 2;
+           if(arr.get(mid) >= num){
+               end = mid;
+           } else {
+               start = mid + 1;
+           }
+        }
+        return end;
+    }
     public static void main(String[] args) throws Exception{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        StringBuilder sb = new StringBuilder();
-        StringTokenizer st = new StringTokenizer(br.readLine(), " ");
-        int N = Integer.parseInt(st.nextToken());
-        int M = Integer.parseInt(st.nextToken());
-        st = new StringTokenizer(br.readLine(), " ");
+        int N = Integer.parseInt(br.readLine());
         int[] arr = new int[N];
-        long MIN = 1, MAX = 0, mid = 0, sum = 0;
+        StringTokenizer st = new StringTokenizer(br.readLine(), " ");
+        ArrayList<Integer> list = new ArrayList<Integer>();
+        list.add(0);
         for(int i = 0; i < N; i++){
             arr[i] = Integer.parseInt(st.nextToken());
-            MAX = (MAX < arr[i]) ? arr[i] : MAX;
-        }
-        while(MAX >= MIN){
-            mid = (MIN + MAX) / 2;
-            sum = 0;
-            for(int i = 0; i < N; i++){
-                sum += (arr[i] > mid) ? arr[i] - mid : 0;
+            if(list.get(list.size() - 1) < arr[i]){
+                list.add(arr[i]);
+            } else {
+                list.set(check(list, arr[i]), arr[i]);
             }
-            if(sum >= M){
-                MIN = mid + 1;
-            } else if(sum < M){
-                MAX = mid - 1;
-            }
-            //System.out.println(MIN + " " + MAX);
         }
-        bw.write(Long.toString(MAX));
+        bw.write(Integer.toString(list.size() - 1));
         br.close();
         bw.close();
     }
