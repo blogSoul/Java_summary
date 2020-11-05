@@ -3,38 +3,34 @@ import java.io.BufferedWriter;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
-import java.util.StringTokenizer;
 
 public class Main{
-    public static int check(ArrayList<Integer> arr, int num){
-        int start = 0, end = arr.size() - 1, mid;
-        while(end > start){
-           mid = (start + end) / 2;
-           if(arr.get(mid) >= num){
-               end = mid;
-           } else {
-               start = mid + 1;
-           }
+    public static ArrayList<Integer> arr;
+    public static int Max(ArrayList<Integer> arr){
+        int max = 0, index = -1, size = arr.size();
+        for(int i = 0; i < size; i++){
+            max = (max < arr.get(i)) ? arr.get(i) : max;
+            index = (max == arr.get(i)) ? i : index;
         }
-        return end;
+        if(index != -1)
+            arr.remove(index);
+        return max;
     }
     public static void main(String[] args) throws Exception{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        StringBuilder sb = new StringBuilder();
         int N = Integer.parseInt(br.readLine());
-        int[] arr = new int[N];
-        StringTokenizer st = new StringTokenizer(br.readLine(), " ");
-        ArrayList<Integer> list = new ArrayList<Integer>();
-        list.add(0);
+        arr = new ArrayList<Integer>();
         for(int i = 0; i < N; i++){
-            arr[i] = Integer.parseInt(st.nextToken());
-            if(list.get(list.size() - 1) < arr[i]){
-                list.add(arr[i]);
+            int num = Integer.parseInt(br.readLine());
+            if(num == 0){
+                sb.append(Max(arr) + "\n");
             } else {
-                list.set(check(list, arr[i]), arr[i]);
+                arr.add(num);
             }
         }
-        bw.write(Integer.toString(list.size() - 1));
+        bw.write(sb.toString());
         br.close();
         bw.close();
     }
