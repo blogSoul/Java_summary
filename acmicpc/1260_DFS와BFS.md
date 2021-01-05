@@ -60,7 +60,7 @@ class ListGraph {
             for(int nextnode : listGraph.get(node)){
                 queue.offer(nextnode);
             }
-        }    
+        }
     }
 }
 
@@ -91,5 +91,5 @@ public class Main {
         br.close();
         bw.close();
     }
-} 
+}
 ```
